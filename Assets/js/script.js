@@ -3,29 +3,33 @@ var generateBtn = document.querySelector("#generate");
 
 // Prompt user for password length
 function getPWLength() {
-  return window.prompt("Password length 8 - 128");
+  var pwLen = 0;
+  while (pwLen < 8 || pwLen > 128) {
+    pwLen = window.prompt("Enter desired password length (8 - 128)");
+  }
+  return pwLen;
 }
 
 function getTypeSelections() {
+  print("<input type='checkbox' id='myId' checked="${value}" />");
   return window.prompt("Enter ULNS");
 }
 
 function getRandom(typeSel) {
-  window.prompt("in getRandom, typeSel: " + typeSel);
+  var types = "";
 
   if (typeSel == 'u') {
     types = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    return "Q";
   } else if (typeSel == 'l') {
     types = "abcdefghijklmnopqrstuvwxyz";
-    return "q";
   } else if (typeSel == 'n') {
     types = "0123456789";
-    return "7";
   } else {
     types = "!#$%^&*()?{}[]";
-    return "#";
   }
+
+   var ranChar = types[Math.floor(Math.random() * types.length)];
+   return ranChar;
 }
 
 function populatePassword(pwLen, typeSel) {
@@ -33,19 +37,17 @@ function populatePassword(pwLen, typeSel) {
   var typePos = 0;
   var newChar;
   var pw = "";
-  window.prompt("populatePassword, typeSel: " + typeSel);
 
   for (i = 0; i < pwLen; i++) {
-    window.prompt("populatePassword, pwLen: " + pwLen);
-    window.prompt("populatePassword, typePos: " + typePos);
-      if (typePos >= pwLen - 1) {
+      if (typePos >= typeSel.length) {
       typePos = 0;
     }
 
+      typeSel + "typePos:" + typePos);
     newChar = getRandom(typeSel[typePos]);
-    window.prompt("populatePassword, newChar: " + newChar);
+    console.log("populatePassword, newChar: " + newChar);
     pw = pw + newChar;
-    window.prompt("populatePassword, pw:$" + pw + '$');
+    console.log("populatePassword, pw:$" + pw + '$');
     typePos++;
   }
   return pw;
@@ -53,9 +55,6 @@ function populatePassword(pwLen, typeSel) {
 
 // Create a pseudo-random password with user's input
 function generatePassword() {
-  var ucChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  var numChars = "0123456789";
-  var speChars = "!#$%^&*()?{}[]";
   var pwLength = getPWLength();
   var typeSelections = getTypeSelections();
   var pw = populatePassword(pwLength, typeSelections);
@@ -67,7 +66,8 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  passwordText.value = "Here is your randomly generated secure password:\n" + 
+    password;
 
 }
 
