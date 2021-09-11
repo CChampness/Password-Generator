@@ -4,6 +4,8 @@ var generateBtn = document.querySelector("#generate");
 // Prompt user for password length
 function getPWLength() {
   var pwLen = 0;
+  var pwTxt = document.querySelector("#password");
+  pwTxt.value = "";
   while (pwLen < 8 || pwLen > 128) {
     pwLen = window.prompt("Enter desired password length (8 - 128)");
   }
@@ -11,7 +13,6 @@ function getPWLength() {
 }
 
 function getTypeSelections() {
-  print("<input type='checkbox' id='myId' checked="${value}" />");
   return window.prompt("Enter ULNS");
 }
 
@@ -43,11 +44,8 @@ function populatePassword(pwLen, typeSel) {
       typePos = 0;
     }
 
-      typeSel + "typePos:" + typePos);
     newChar = getRandom(typeSel[typePos]);
-    console.log("populatePassword, newChar: " + newChar);
     pw = pw + newChar;
-    console.log("populatePassword, pw:$" + pw + '$');
     typePos++;
   }
   return pw;
@@ -68,8 +66,11 @@ function writePassword() {
 
   passwordText.value = "Here is your randomly generated secure password:\n" + 
     password;
-
+    generateBtn.removeEventListener("click", writePassword);
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
+
+
