@@ -10,6 +10,8 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+  background: #f4f4f4 url(https://developer.mozilla.org/static/media/clippy.92fffda9.svg) 50% no-repeat;
+  background-position: 61% 45%;
 }
 
 body {
