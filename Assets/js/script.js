@@ -1,65 +1,84 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+function clearCardHeader() {
+  console.log("enteringclearCardHeaser");
+  const el = document.querySelector(".card-header h2");
+  console.log("Here is el: " + el);
+  console.log("Content: " + el.textContent);
+  el.textContent = "Generate new password";
+  el.append();
+  console.log("Content: " + el.textContent);
+}
+
 // Prompt user for password length
 function getPWLength() {
   var pwLen = 0;
+  clearCardHeader();
   var pwTxt = document.querySelector("#password");
   pwTxt.value = "";
   while (pwLen < 8 || pwLen > 128) {
     pwLen = window.prompt("Enter desired password length (8 - 128)");
-  }
+    if (pwLen === null) {
+      // This would be if the user hit "cancel"
+      return null;
+    }
+    console.log("pwLen: " + pwLen)
+ }
   return pwLen;
 }
 
 function getTypeSelections() {
-  // return window.prompt("Enter ULNS");
-  /* Could use confirms for all 4 types */
+  /* Use confirms for all 4 types */
   var typeList = "";
-  if (confirm("Upper case?")) {
-    typeList += "u";
-  }
+  while (typeList == "") {
+    if (confirm("Upper case?")) {
+      typeList += "u";
+    }
 
-  if (confirm("Lower case?")) {
-    typeList += "l";
-  }
+    if (confirm("Lower case?")) {
+      typeList += "l";
+    }
 
-  if (confirm("Special characters?")) {
-    typeList += "s";
-  }
+    if (confirm("Special characters?")) {
+      typeList += "s";
+    }
 
-  if (confirm("Numbers?")) {
-    typeList += "n";
-  }
+    if (confirm("Numbers?")) {
+      typeList += "n";
+    }
   
+    if (typeList == "") {
+      if( !confirm("Nothing selected.  Do you wish to continue?\n" +
+                    "Press OK to continue or Cancel to quit")) {
+        return null;
+      }
+    }
+  }
   return typeList;
 }
 
+/* Take in a string containing all of the characters that are in the
+   selected types (Upper case, lower case, numbers, and special characters).
+   Return with the one randomly picked character from the list. */
 function getRandom(charList) {
    var ranChar = charList[Math.floor(Math.random() * charList.length)];
    return ranChar;
 }
 
+// Fill in the new password to the requested length
 function populatePassword(pwLen, charList) {
- 
-  // var typePos = 0;
   var newChar;
   var pw = "";
 
   for (i = 0; i < pwLen; i++) {
     newChar = getRandom(charList);
-    pw = pw + newChar;
-      // if (typePos >= typeSel.length) {
-      // typePos = 0;
-    }
-
-    // newChar = getRandom(typeSel[typePos]);
-    // pw = pw + newChar;
-    // typePos++;
-  // }
+    pw += newChar;
+  }
   return pw;
 }
 
+// build a string that has all of the combined types
 function buildCharList(typeSel) {
   var charList = "";
 
@@ -85,35 +104,40 @@ function buildCharList(typeSel) {
   return charList;
 }
 
-// build a temporary string that has the combined types,
-// then select randomly from the temp string.
-
 // Create a pseudo-random password with user's input
 function generatePassword() {
   var pwLength = getPWLength();
+  if (pwLength === null) {
+    return null;
+  }
+
   var typeSelections = getTypeSelections();
-  console.log(typeSelections);
+  if (typeSelections == null) {
+    return null;
+  }
   var charList = buildCharList(typeSelections);
-  console.log(charList);
   var pw = populatePassword(pwLength, charList);
   return pw;
 }
 
-
-
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
+  if (password === null) {
+    return;
+  }
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = "Here is your randomly generated secure password:\n" + 
-    password;
-    generateBtn.removeEventListener("click", writePassword);
+// When the new password is ready,
+// put up this message instead of "Generate a Password"
+  const el = document.querySelector(".card-header h2");
+  // console.log(el);
+  el.textContent = "Here is your randomly generated password:";
+
+  passwordText.value = password;
+    // generateBtn.removeEventListener("click", writePassword);
 }
 
-/* <button aria-hidden="false" type="button" class="copy-icon">
-  <span class="visually-hidden">Copy to Clipboard</span>
-</button> */
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
