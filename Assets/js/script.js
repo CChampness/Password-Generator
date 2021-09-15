@@ -1,20 +1,20 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-function clearCardHeader() {
-  console.log("enteringclearCardHeaser");
-  const el = document.querySelector(".card-header h2");
-  console.log("Here is el: " + el);
-  console.log("Content: " + el.textContent);
-  el.textContent = "Generate new password";
-  el.append();
-  console.log("Content: " + el.textContent);
-}
+// function clearCardHeader() {
+//   console.log("enteringclearCardHeaser");
+//   const el = document.querySelector(".card-header h2");
+//   console.log("Here is el: " + el);
+//   console.log("Content: " + el.textContent);
+//   el.textContent = "Generate new password";
+//   el.append();
+//   console.log("Content: " + el.textContent);
+// }
 
 // Prompt user for password length
 function getPWLength() {
   var pwLen = 0;
-  clearCardHeader();
+  // clearCardHeader();
   var pwTxt = document.querySelector("#password");
   pwTxt.value = "";
   while (pwLen < 8 || pwLen > 128) {
@@ -32,7 +32,8 @@ function getTypeSelections() {
   /* Use confirms for all 4 types */
   var typeList = "";
   while (typeList == "") {
-    if (confirm("Upper case?")) {
+    if (confirm("Click OK to include upper case letters\n"+
+                 "or click Cancel to skip upper case letters")) {
       typeList += "u";
     }
 
