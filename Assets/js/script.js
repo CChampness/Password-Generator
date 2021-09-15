@@ -1,35 +1,29 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-// function clearCardHeader() {
-//   console.log("enteringclearCardHeaser");
-//   const el = document.querySelector(".card-header h2");
-//   console.log("Here is el: " + el);
-//   console.log("Content: " + el.textContent);
-//   el.textContent = "Generate new password";
-//   el.append();
-//   console.log("Content: " + el.textContent);
-// }
-
 // Prompt user for password length
 function getPWLength() {
   var pwLen = 0;
-  // clearCardHeader();
-  var pwTxt = document.querySelector("#password");
-  pwTxt.value = "";
   while (pwLen < 8 || pwLen > 128) {
-    pwLen = window.prompt("Enter desired password length (8 - 128)");
+    pwLen = prompt("Enter desired password length (8 - 128)\n" +
+                          "or Cancel to quit");
     if (pwLen === null) {
-      // This would be if the user hit "cancel"
+      // This would be the case if the user hits "Cancel"
       return null;
     }
-    console.log("pwLen: " + pwLen)
- }
+    if (pwLen === '') {
+      alert(pwLen + "No length given!");
+    } else if (pwLen < 8) {
+      alert(pwLen + " is too short!");
+    } else if (pwLen > 128) {
+      prompt(pwLen + " is too long!");
+    }
+  }
   return pwLen;
 }
 
 function getTypeSelections() {
-  /* Use confirms for all 4 types */
+  /* Use confirms yes or no for all 4 types */
   var typeList = "";
   while (typeList == "") {
     if (confirm("Click OK to include upper case letters\n"+
@@ -37,15 +31,18 @@ function getTypeSelections() {
       typeList += "u";
     }
 
-    if (confirm("Lower case?")) {
+    if (confirm("Click OK to include lower case letters\n"+
+                "or click Cancel to skip lower case letters")) {
       typeList += "l";
     }
 
-    if (confirm("Special characters?")) {
+    if (confirm("Click OK to include special characters\n"+
+                "or click Cancel to skip special characters")) {
       typeList += "s";
     }
 
-    if (confirm("Numbers?")) {
+    if (confirm("Click OK to include numbers\n"+
+                "or click Cancel to skip numbers")) {
       typeList += "n";
     }
   
@@ -79,10 +76,12 @@ function populatePassword(pwLen, charList) {
   return pw;
 }
 
-// build a string that has all of the combined types
+// Build a string that has all of the combined types
 function buildCharList(typeSel) {
   var charList = "";
 
+  // Using the string of types to combine, build a string
+  // of all of the charcters from all of the types
   for (var i = 0; i < typeSel.length; i++) {
     var type = typeSel[i];
 
@@ -105,18 +104,22 @@ function buildCharList(typeSel) {
   return charList;
 }
 
-// Create a pseudo-random password with user's input
+// Create a random password with user's input
 function generatePassword() {
   var pwLength = getPWLength();
   if (pwLength === null) {
     return null;
   }
 
+  // Ask user for what types of characters to include
   var typeSelections = getTypeSelections();
   if (typeSelections == null) {
     return null;
   }
+  // Build one list of characters of all of the chosen types
   var charList = buildCharList(typeSelections);
+
+  // Use the character list to get a password of the chosen length
   var pw = populatePassword(pwLength, charList);
   return pw;
 }
@@ -128,19 +131,8 @@ function writePassword() {
     return;
   }
   var passwordText = document.querySelector("#password");
-
-// When the new password is ready,
-// put up this message instead of "Generate a Password"
-  const el = document.querySelector(".card-header h2");
-  // console.log(el);
-  el.textContent = "Here is your randomly generated password:";
-
   passwordText.value = password;
-    // generateBtn.removeEventListener("click", writePassword);
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-
-

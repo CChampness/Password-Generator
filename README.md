@@ -22,17 +22,16 @@ I WANT to randomly generate a password that meets certain criteria
 SO THAT I can create a strong password that provides greater security
 ```
 
-## Acceptance Criteria
+## Features of the Password Generator application
 
-```
-WHEN I click the button to generate a password
-THEN I am presented with a series of prompts for password criteria
+* When the user clicks the button to generate a password, a series of prompts
+is presented to receive the desired password criteria
 
-WHEN prompted for password criteria
-THEN I select which criteria to include in the password
-
-WHEN prompted for the length of the password
-THEN I choose a length of at least 8 characters and no more than 128 characters
+* First, the user is prompted for the length of the password.  If the chosen
+length is not in the acceptable length of at least 8 characters, then the user receives 
+a prompt saying that the chosen length is too short.
+ and no more
+than 128 characters,
 
 WHEN asked for character types to include in the password
 THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
@@ -45,7 +44,7 @@ THEN a password is generated that matches the selected criteria
 
 WHEN the password is generated
 THEN the password is either displayed in an alert or written to the page
-```
+
 
 ## Image capture of the application
 ```
@@ -62,6 +61,16 @@ was given user input requesting a password with length 50 characters, chosen
 randomly from Special characters and Lowercase letters.
 ```
 ![Password Generator demo](./Assets/images/Password-Generator.gif)
+
+## Link to the live deployed site:
+http://cchampness.github.io/Password-Generator
+
+## Bugs and improvements to be done:
+* Fix the sizing of the header and images on small mobile devices.
+* Fix the spacing between links in "Contacts" at the bottom of the page.
+* Add images for applications that only have place-holder images.
+* Add more text to the "About Me" acticle.
+* Add text to the details of the applications in "details.html".
 
 
 ### Technical Acceptance Criteria: 40%
