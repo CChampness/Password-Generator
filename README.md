@@ -64,6 +64,6 @@ length 50 characters, chosen randomly from Special characters and Lowercase lett
 ![Password Generator demo](./Assets/images/Password-Generator.gif)
 
 ## Link to the live deployed site:
-http://cchampness.github.io/Password-Generator
+https://cchampness.github.io/Password-Generator/
 - - -
 Chris Champness
